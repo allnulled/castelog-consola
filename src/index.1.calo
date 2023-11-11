@@ -8,109 +8,37 @@ Ejecutable como documento HTML5
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="lib/win7/win7.scoped.2.css" />
     <link rel="stylesheet" type="text/css" href="lib/codemirror/codemirror.css" />
+    <link rel="stylesheet" type="text/css" href="lib/theme/theme.css" />
     <script src="lib/calo/calo.js"></script>
     <script src="lib/calo/castelog.parser.js"></script>
     <script src="lib/codemirror/codemirror.js"></script>
-    <style>
-      /********************************/
-      html, body {
-        margin: 0;
-        padding: 0;
-      }
-      h5 {
-        background-color: #222;
-        color: white;
-        padding: 8px;
-        margin: 0px;
-        border-bottom: 1px solid #FFF;
-      }
-
-      /********************************/
-      #consola_de_castelog .CodeMirror {
-        font-size: 10px;
-        background-color: #111;
-        color: #0F0;
-        border: 1px solid #111;
-      }
-      #consola_de_castelog .CodeMirror .CodeMirror-gutters {
-        background-color: #333;
-      }
-      #consola_de_castelog .CodeMirror-cursor {
-        border-left: 1px solid yellow;
-      }
-
-      /********************************/
-      #consola_de_salida .CodeMirror {
-        font-size: 10px;
-        background-color: #000;
-        color: #FF0;
-        border: 1px solid #111;
-      }
-      #consola_de_salida .CodeMirror .CodeMirror-gutters {
-        background-color: #333;
-      }
-      #consola_de_salida .CodeMirror-cursor {
-        border-left: 1px solid yellow;
-      }
-    </style>
+    <script src="lib/components/pagina_de_inicio/pagina_de_inicio.js"></script>
+    <script src="lib/components/pagina_de_ficheros/pagina_de_ficheros.js"></script>
+    <script src="lib/components/pagina_de_fichero/pagina_de_fichero.js"></script>
+    <script src="lib/components/pagina_de_consola/pagina_de_consola.js"></script>
 </head>
 <body><div id="app"></div></body>.
 
-creo PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio" con plantilla {
-  <div class="PaginaDeInicio Component">
-    <h5>Consola</h5>
-    <div id="consola_de_castelog">
-      <textarea ref="consola_de_castelog"></textarea>
-    </div>
-    <table>
-      <tr>
-        <td style="width: 100%;">
-          <button style="width: 100%;" v-on:click="() => ejecutar_codigo_castelog()">Ejecutar</button>
-        </td>
-        <td style="width: 1%;">
-          <button v-on:click="() => guardar_codigo_castelog()">Guardar</button>
-        </td>
-      </tr>
-    </table>
-    <div id="consola_de_salida">
-      <textarea ref="consola_de_salida"></textarea>
-    </div>
-  </div>
-} con lógica {
-  retorno {
-    propiedad props como {
-      propiedad root como Object.
-      propiedad required como true.
-    }.
-    método data donde {
-      retorno {
-        consola_entrada_codemirror: undefined,
-        consola_salida_codemirror: undefined
-      }.
-    }.
-    propiedad methods como {
-      método asíncrono ejecutar_codigo_castelog donde {
-        creo codigo_castelog como this.consola_entrada_codemirror.getValue().
-        creo codigo_js como this.$window.Castelog_parser.parse(codigo_castelog).
-        creo resultado como asíncronamente this.$window.eval("(async () => {const __dirname = process.cwd();" + codigo_js + "})()").
-        creo resultado_json como JSON.stringify(resultado, null, 4).
-        hago this.consola_salida_codemirror.setValue(resultado_json).
-      } en errores hago this.root.gestionar_error(error).
-      método asíncrono guardar_codigo_castelog donde {
-
-      } en errores hago this.root.gestionar_error(error).
-    }.
-    método mounted donde {
-      asigno this.consola_entrada_codemirror como CodeMirror.fromTextArea(this.$refs.consola_de_castelog, { lineNumbers: true }).
-      asigno this.consola_salida_codemirror como CodeMirror.fromTextArea(this.$refs.consola_de_salida, { lineNumbers: true }).
-    }.
-  }.
-}.
 
 creo App como una aplicación vue2 con nombre "App" con rutas [{
+  propiedad path como "/consola".
+  propiedad name como "PaginaDeConsola".
+  propiedad component como window.PaginaDeConsola.
+  propiedad props como {}.
+}, {
+  propiedad path como "/ficheros".
+  propiedad name como "PaginaDeFicheros".
+  propiedad component como window.PaginaDeFicheros.
+  propiedad props como {}.
+}, {
+  propiedad path como "/fichero".
+  propiedad name como "PaginaDeFichero".
+  propiedad component como window.PaginaDeFichero.
+  propiedad props como {}.
+}, {
   propiedad path como "/".
-  propiedad name como "Home".
-  propiedad component como PaginaDeInicio.
+  propiedad name como "PaginaDeInicio".
+  propiedad component como window.PaginaDeInicio.
   propiedad props como {}.
 }] con traducciones {
   propiedad es como {}.

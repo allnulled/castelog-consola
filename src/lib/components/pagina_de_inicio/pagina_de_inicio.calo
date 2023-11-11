@@ -1,0 +1,39 @@
+asigno window.PaginaDeInicio como un componente vue2 con nombre "PaginaDeInicio" con plantilla {
+  <div class="PaginaDeInicio Component">
+    <h5>
+      <span>Inicio</span>
+    </h5>
+    <ul class="fuente_monoespaciada">
+      <li>
+        <router-link to="/ficheros">
+          <div class="como_link">Ficheros</div>
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/consola">
+          <div class="como_link">Consola</div>
+        </router-link>
+      </li>
+    </ul>
+  </div>
+} con lógica {
+  retorno {
+    propiedad props como {
+      propiedad root como {
+        propiedad type como Object.
+        propiedad required como true.
+      }.
+    }.
+    método data donde {
+      retorno {
+        
+      }.
+    }.
+    propiedad methods como {
+      
+    }.
+    método mounted donde {
+      
+    }.
+  }.
+}.

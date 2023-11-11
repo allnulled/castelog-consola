@@ -1,0 +1,62 @@
+asigno window.PaginaDeFicheros como un componente vue2 con nombre "PaginaDeFicheros" con plantilla {
+  <div class="PaginaDeFicheros Component">
+    <h5>
+      <router-link to="/">Inicio</router-link> » <span>Ficheros</span>
+    </h5>
+    <div class="panel_tipo_1">
+      <ul>
+        <li v-for="fichero, fichero_index in ficheros" v-bind:key="'fichero-' + fichero_index">
+          <div v-if="fichero.tipo === 'directorio'" class="como_link_de_directorio" v-on:click="() => cambiar_a_directorio(fichero.ruta_completa)">
+            {{ fichero.ruta }}
+          </div>
+          <div v-else class="como_link_de_fichero" v-on:click="() => abrir_fichero(fichero.ruta_completa)">
+            {{ fichero.ruta }}
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+} con lógica {
+  retorno {
+    propiedad props como {
+      propiedad root como {
+        propiedad type como Object.
+        propiedad required como true.
+      }.
+    }.
+    método data donde {
+      retorno {
+        directorio_actual: process.cwd(),
+        ficheros: undefined
+      }.
+    }.
+    propiedad methods como {
+      método abrir_fichero con (ruta_completa) donde {
+        creo parametros_de_ruta como un nuevo URLSearchParams().
+        hago parametros_de_ruta.set("fichero", ruta_completa).
+        creo url_de_destino como "/fichero?" + parametros_de_ruta.toString().
+        hago this.$router.history.push(url_de_destino).
+      }.
+      método cambiar_a_directorio con (ruta_completa) donde {
+        asigno this.directorio_actual como ruta_completa.
+        hago process.chdir(this.directorio_actual).
+        hago this.cargar_ficheros().
+        hago this.$forceUpdate(true).
+      }.
+      método cargar_ficheros donde {
+        asigno this.ficheros como [".."].concat(require("fs").readdirSync(this.directorio_actual)).map(una lambda con (fichero) donde {
+          creo ruta_completa como require("path").resolve(this.directorio_actual, fichero).
+          creo es_directorio como require("fs").lstatSync(ruta_completa).isDirectory().
+          retorno {
+            ruta_completa,
+            ruta: fichero,
+            tipo: cuando es_directorio entonces "directorio" si no "fichero"
+          }.
+        }).
+      }.
+    }.
+    método mounted donde {
+      hago this.cargar_ficheros().
+    }.
+  }.
+}.

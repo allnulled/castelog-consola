@@ -1,0 +1,89 @@
+/********************************/
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h5 {
+  background-color: #222;
+  color: white;
+  padding: 8px;
+  margin: 0px;
+  border-bottom: 1px solid #FFF;
+}
+
+/********************************/
+#consola_de_castelog .CodeMirror {
+  font-size: 10px;
+  background-color: #111;
+  color: #0F0;
+  border: 1px solid #111;
+}
+
+#consola_de_castelog .CodeMirror .CodeMirror-gutters {
+  background-color: #333;
+}
+
+#consola_de_castelog .CodeMirror-cursor {
+  border-left: 1px solid yellow;
+}
+
+/********************************/
+#consola_de_salida .CodeMirror {
+  font-size: 10px;
+  background-color: #000;
+  color: #FF0;
+  border: 1px solid #111;
+}
+
+#consola_de_salida .CodeMirror .CodeMirror-gutters {
+  background-color: #333;
+}
+
+#consola_de_salida .CodeMirror-cursor {
+  border-left: 1px solid yellow;
+}
+
+.panel_tipo_1 {
+  border: 1px solid #333;
+  margin-bottom: 4px;
+  padding: 4px;
+  box-shadow: 0 0 2px black;
+}
+
+.como_link {
+  color: blue;
+  cursor: pointer;
+}
+
+.fuente_monoespaciada {
+  font-family: monospace;
+  font-size: 10px;
+}
+
+.como_link_de_directorio,
+.como_link_de_fichero {
+  font-size: 10px;
+  font-family: monospace;
+  padding: 4px;
+}
+
+.como_link_de_directorio:hover,
+.como_link_de_fichero:hover {
+  background-color: rgb(17, 8, 79);
+  color: rgb(255, 255, 255);
+}
+
+.como_link_de_directorio {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.como_link_de_fichero {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}

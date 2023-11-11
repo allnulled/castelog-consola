@@ -4,6 +4,6 @@
     "main": "index.1.html",
     "window": {
         "frame": true,
-        "toolbar": false
+        "toolbar": true
     }
 }

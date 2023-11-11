@@ -5,11 +5,11 @@
   "main": "src/index.1.html",
   "window": {
     "frame": true,
-    "toolbar": false
+    "toolbar": true
   },
   "scripts": {
-    "start": "node run.js",
-    "start:linux": "./runner/nw/linux/nw .",
+    "start": "~/.nodejs/node/bin/npm run start:linux",
+    "start:linux": "~/.node-webkit/nw/nwjs-sdk-v0.82.0-linux-x64/nw src",
     "start:windows": "./runner/nw/windows/nw.exe .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

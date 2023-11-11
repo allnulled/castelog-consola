@@ -1,0 +1,51 @@
+asigno window.PaginaDeFichero como un componente vue2 con nombre "PaginaDeFichero" con plantilla {
+  <div class="PaginaDeFichero Component">
+    <h5>
+      <router-link to="/">Inicio</router-link> » 
+      <router-link to="/ficheros">Ficheros</router-link> » 
+      <span>Fichero</span>
+    </h5>
+    <table>
+      <tr>
+        <td style="width:100%;">
+          <div class="fuente_monoespaciada">{{ ruta_de_fichero }}</div>
+        </td>
+        <td>
+          <button style="width: 100%;" v-on:click="() => guardar_fichero()">Guardar</button>
+        </td>
+      </tr>
+    </table>
+    <div class="editor_de_fichero">
+      <textarea ref="editor_de_fichero"></textarea>
+    </div>
+  </div>
+} con lógica {
+  retorno {
+    propiedad props como {
+      propiedad root como {
+        propiedad type como Object.
+        propiedad required como true.
+      }.
+    }.
+    método data donde {
+      retorno {
+        ruta_de_fichero: undefined,
+        editor_de_fichero_codemirror: undefined
+      }.
+    }.
+    propiedad methods como {
+      método guardar_fichero donde {
+        creo contenido como this.editor_de_fichero_codemirror.getValue().
+        hago require("fs").writeFileSync(this.ruta_de_fichero, contenido, "utf8").
+      }.
+    }.
+    método mounted donde {
+      asigno this.editor_de_fichero_codemirror como CodeMirror.fromTextArea(this.$refs.editor_de_fichero, { lineNumbers: true }).
+      creo parametros_de_ruta_en_texto como this.$window.location.href.substr(this.$window.location.href.indexOf("?")).
+      creo parametros_de_ruta como un nuevo URLSearchParams(parametros_de_ruta_en_texto).
+      asigno this.ruta_de_fichero como parametros_de_ruta.get("fichero").
+      creo contenido_de_fichero como require("fs").readFileSync(this.ruta_de_fichero, "utf8").
+      hago this.editor_de_fichero_codemirror.setValue(contenido_de_fichero).
+    }.
+  }.
+}.
